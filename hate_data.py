@@ -11,6 +11,9 @@ from bs4 import BeautifulSoup
 import requests
 
 
+app = Flask(__name__)
+
+
 db_url = "hate_data.db"
 cvs_file_name = "splc-hate-groups-2020.csv"
 
@@ -94,24 +97,12 @@ def get_state_square_miles():
     return state_miles_dct
 
 
-def get_state_hate_data(state=None):
+@app.route("/hatedata")
+def get_state_hate_data():
     """
-    Get a set of hate data pertaining to a given state. If none given, return a list of all states.
-    :param state: Name of a U.S. state
-    :return: A json 'list' of states and their associated hate info. Just a list of one state if state arg given.
-    Otherwise, send back a full dataset for every single state.
+    Get a set of hate data pertaining all states.
+    :return: A json set of all states and their respective data.
     """
-
-    state_pops = get_state_populations()
-    state_names = [state for state, pop in state_pops]
-    for state_name in state_names:
-        hate_group_count = get_state_hate_count(state=state_name)
-        most_common_hate_group = get_most_common_hate_group(state=state_name)
-        print("State of {:20} has {:5} hate group(s) with the most common being {:20}".format(state_name, hate_group_count, most_common_hate_group))
-    return None
-
-
-if __name__ == '__main__':
     hate_data_dict = dict()
 
     square_miles_dict = get_state_square_miles()
@@ -125,4 +116,9 @@ if __name__ == '__main__':
         state_data = dict(square_miles=square_miles, hate_count=hate_count, most_common=most_common, pop=pop)
         hate_data_dict[state]=state_data
 
-    print(hate_data_dict)
+    return jsonify(hate_data_dict)
+
+
+if __name__ == '__main__':
+    app.debug=True
+    app.run()
