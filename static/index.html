@@ -51,7 +51,7 @@
         </div>
         <div class="tab-pane" id="statebystatepane">
             <h3>state by state</h3>
-            <table class="table">
+            <table class="table" id="statebystatetable">
                 <tr>
                     <th>State</th>
                     <th>Pop</th>
@@ -62,15 +62,6 @@
                     <th>Hate/Person</th>
                     <!-- generated html for each state goes here. -->
                     <div id="statebystatedata">
-                        <tr>
-                            <td>Alabama</td>
-                            <td>546785765</td>
-                            <td>324</td>
-                            <td>66</td>
-                            <td>White Nationalist</td>
-                            <td>.4476</td>
-                            <td>.25</td>
-                        </tr>
                     </div>
                 </tr>
             </table>
@@ -80,14 +71,38 @@
 <script>
 
 $(function(w){
-    /* load up the state data. */
-    var url = "/hatedata";
+
     var success = function(statesHash){
+
+        var stateByStateTable = $("#statebystatetable");
+
         var state;
+        var rowObject;
         for(state in statesHash){
-            // stub data dump for now.
-            console.log(state);
-            console.log(statesHash[state]);
+            var squareMiles = statesHash[state].square_miles;
+            var hateCount = statesHash[state].hate_count;
+            var mostCommon = statesHash[state].most_common;
+            var population = statesHash[state]["pop"];
+
+            var popCell = $("<td>").text(population);
+            var stateCell = $("<td>").text(state);
+            var squareMilesCell = $("<td>").text(squareMiles);
+            var hateCountCell = $("<td>").text(hateCount);
+            var mostCommonCell = $("<td>").text(mostCommon);
+            var hateSquareMileCell = $("<td>").text("TBD");
+            var hatePersonCell = $("<td>").text("TBD");
+
+
+            var newRow = $("<tr>");
+            stateCell.appendTo(newRow);
+            popCell.appendTo(newRow);
+            squareMilesCell.appendTo(newRow);
+            hateCountCell.appendTo(newRow);
+            mostCommonCell.appendTo(newRow);
+            hateSquareMileCell.appendTo(newRow);
+            hatePersonCell.appendTo(newRow);
+
+            newRow.appendTo(stateByStateTable);
         }
     };
 
@@ -96,6 +111,8 @@ $(function(w){
         console.log(e);
     };
 
+
+    var url = "/hatedata";
     $.ajax({url: url, success: success, error: error});
 
 }(window));
