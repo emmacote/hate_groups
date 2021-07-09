@@ -5,7 +5,7 @@ description: Put the date in the splc hate group data for 2020 into a sqlite3 da
 import sqlite3
 import csv
 import flask
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 import json
 from bs4 import BeautifulSoup
 import requests
@@ -117,6 +117,10 @@ def get_state_hate_data():
         hate_data_dict[state]=state_data
 
     return jsonify(hate_data_dict)
+
+@app.route("/")
+def index():
+    return redirect("/static/index.html")
 
 
 if __name__ == '__main__':

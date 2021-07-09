@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Hate Groups</title>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1 align="center">Hate Group Data</h1>
+    </div>
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li><a data-toggle="tab" href="#nationwidepane">Nationwide</a></li>
+            <li><a data-toggle="tab" href="#statebystatepane">State by State</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane" id="nationwidepane">
+            <h3>nationwide</h3>
+            <table class="table">
+                <tr>
+                    <td>Population: </td>
+                    <td><div id="nw_population"></div></td>
+                </tr>
+                <tr>
+                    <td>Square miles: </td>
+                    <td><div id="nw_square_miles"></div></td>
+                </tr>
+                <tr>
+                    <td>Number of Hate Groups: </td>
+                    <td><div id="nw_num_groups"></div></td>
+                </tr>
+                <tr>
+                    <td>Most Common Hate Group</td>
+                    <td><div id="nw_most_common_group"></div></td>
+                </tr>
+                <tr>
+                    <td>Hate Groups Per Square Inch: </td>
+                    <td><div id="nw_groups_square_inch"></div></td>
+                </tr>
+                <tr>
+                    <td>Hate Groups Per Person: </td>
+                    <td><div id="nw_groups_person"></div></td>
+                </tr>
+            </table>
+        </div>
+        <div class="tab-pane" id="statebystatepane">
+            <h3>state by state</h3>
+            <table class="table">
+                <tr>
+                    <th>State</th>
+                    <th>Pop</th>
+                    <th>Sq/Mi</th>
+                    <th># hate groups</th>
+                    <th>Most Common Type</th>
+                    <th>Hate/Sq Mi</th>
+                    <th>Hate/Person</th>
+                    <!-- generated html for each state goes here. -->
+                    <div id="statebystatedata">
+                        <tr>
+                            <td>Alabama</td>
+                            <td>546785765</td>
+                            <td>324</td>
+                            <td>66</td>
+                            <td>White Nationalist</td>
+                            <td>.4476</td>
+                            <td>.25</td>
+                        </tr>
+                    </div>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+
+$(function(w){
+    /* load up the state data. */
+    var url = "/hatedata";
+    var success = function(statesHash){
+        var state;
+        for(state in statesHash){
+            // stub data dump for now.
+            console.log(state);
+            console.log(statesHash[state]);
+        }
+    };
+
+    var error = function(e){
+        console.log("error in ajax request...");
+        console.log(e);
+    };
+
+    $.ajax({url: url, success: success, error: error});
+
+}(window));
+
+</script>
+</body>
+</html>
