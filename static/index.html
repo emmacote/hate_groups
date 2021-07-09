@@ -83,14 +83,16 @@ $(function(w){
             var hateCount = statesHash[state].hate_count;
             var mostCommon = statesHash[state].most_common;
             var population = statesHash[state]["pop"];
+            var hateSquareMile = hateCount / squareMiles;
+            var hatePerson = hateCount / population;
 
             var popCell = $("<td>").text(population);
             var stateCell = $("<td>").text(state);
             var squareMilesCell = $("<td>").text(squareMiles);
             var hateCountCell = $("<td>").text(hateCount);
             var mostCommonCell = $("<td>").text(mostCommon);
-            var hateSquareMileCell = $("<td>").text("TBD");
-            var hatePersonCell = $("<td>").text("TBD");
+            var hateSquareMileCell = $("<td>").text(hateSquareMile);
+            var hatePersonCell = $("<td>").text(hatePerson);
 
 
             var newRow = $("<tr>");
