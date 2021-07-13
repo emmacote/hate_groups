@@ -4,12 +4,9 @@ Last Update: June 7, 2021
 description: Put the date in the splc hate group data for 2020 into a sqlite3 data table."""
 import sqlite3
 import csv
-import flask
-from flask import Flask, request, jsonify, redirect
-import json
+from flask import Flask, jsonify, redirect
 from bs4 import BeautifulSoup
 import requests
-
 
 app = Flask(__name__)
 
@@ -30,7 +27,7 @@ def get_state_populations():
 
         state_pops = [(state_rec[STATE], state_rec[POPESTIMATE2019]) for state_rec in state_recs]
 
-    state_pops.pop() # HACK: Puerto Rico shows up as the last record. Removing it from the list.
+    state_pops.pop()  # HACK: Puerto Rico shows up as the last record. Removing it from the list.
     state_pops = dict(state_pops)
     return state_pops
 
@@ -114,9 +111,10 @@ def get_state_hate_data():
         hate_count = get_state_hate_count(state)
         most_common = get_most_common_hate_group(state)
         state_data = dict(square_miles=square_miles, hate_count=hate_count, most_common=most_common, pop=pop)
-        hate_data_dict[state]=state_data
+        hate_data_dict[state] = state_data
 
     return jsonify(hate_data_dict)
+
 
 @app.route("/")
 def index():
@@ -124,5 +122,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.debug=True
+    app.debug = True
     app.run()

@@ -113,9 +113,9 @@ $(function(w){
         console.log(e);
     };
 
-
     var url = "/hatedata";
-    $.ajax({url: url, success: success, error: error});
+    var promise = $.ajax(url);
+    promise.then(success, error);
 
 }(window));
 
