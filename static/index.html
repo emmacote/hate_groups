@@ -40,8 +40,8 @@
                     <td><div id="nw_most_common_group"></div></td>
                 </tr>
                 <tr>
-                    <td>Hate Groups Per Square Inch: </td>
-                    <td><div id="nw_groups_square_inch"></div></td>
+                    <td>Hate Groups Per Square Mile: </td>
+                    <td><div id="nw_groups_square_mile"></div></td>
                 </tr>
                 <tr>
                     <td>Hate Groups Per Person: </td>
@@ -127,6 +127,11 @@ $(function(w){
         $("#nw_population").text(totalPopulation);
         $("#nw_square_miles").text(totalMiles);
         $("#nw_num_groups").text(totalHateCount);
+
+        var hatePerSquareMile = totalHateCount / totalMiles;
+        var hatePerPerson = totalHateCount / totalPopulation;
+        $("#nw_groups_square_mile").text(hatePerSquareMile);
+        $("#nw_groups_person").text(hatePerPerson);
 
     };
 
