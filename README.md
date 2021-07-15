@@ -9,3 +9,6 @@ TODO:
 3. Find and download dataset that shows the number of people living in each state. (done)
 4. Think about if there is a relationship between proliferation of hate groups with respect to the population of a state.
 5. Figure out how to get proper headers in markdown for these readme docs.(done)
+6. Write endpoints that provide nationwide and state by state hate data. (done)
+7. Set up bootstrap / jquery interface that displays state level and nationwide level hata group data. (done)
+
