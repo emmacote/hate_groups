@@ -74,6 +74,7 @@ $(function(w){
 
     var success = function(statesHash){
 
+        // state by state data display
         var stateByStateTable = $("#statebystatetable");
 
         var state;
@@ -106,6 +107,27 @@ $(function(w){
 
             newRow.appendTo(stateByStateTable);
         }
+
+        // nationwide data display
+        var totalMiles = 0;
+        var totalHateCount = 0;
+        var totalPopulation = 0;
+        for(state in statesHash){
+            var squareMiles = statesHash[state].square_miles;
+            var hateCount = statesHash[state].hate_count;
+            var mostCommon = statesHash[state].most_common;
+            var population = statesHash[state]["pop"];
+
+            totalMiles = totalMiles + squareMiles;
+            totalHateCount = totalHateCount + hateCount;
+            totalPopulation = totalPopulation + Number(population);
+
+        }
+
+        $("#nw_population").text(totalPopulation);
+        $("#nw_square_miles").text(totalMiles);
+        $("#nw_num_groups").text(totalHateCount);
+
     };
 
     var error = function(e){
