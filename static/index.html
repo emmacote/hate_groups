@@ -87,10 +87,10 @@ $(function(w){
             var hateSquareMile = hateCount / squareMiles;
             var hatePerson = hateCount / population;
 
-            var popCell = $("<td>").text(population);
+            var popCell = $("<td>").text(Number(population).toLocaleString());
             var stateCell = $("<td>").text(state);
-            var squareMilesCell = $("<td>").text(squareMiles);
-            var hateCountCell = $("<td>").text(hateCount);
+            var squareMilesCell = $("<td>").text(squareMiles.toLocaleString());
+            var hateCountCell = $("<td>").text(hateCount.toLocaleString());
             var mostCommonCell = $("<td>").text(mostCommon);
             var hateSquareMileCell = $("<td>").text(hateSquareMile);
             var hatePersonCell = $("<td>").text(hatePerson);
@@ -124,9 +124,9 @@ $(function(w){
 
         }
 
-        $("#nw_population").text(totalPopulation);
-        $("#nw_square_miles").text(totalMiles);
-        $("#nw_num_groups").text(totalHateCount);
+        $("#nw_population").text(totalPopulation.toLocaleString());
+        $("#nw_square_miles").text(totalMiles.toLocaleString());
+        $("#nw_num_groups").text(totalHateCount.toLocaleString());
 
         var hatePerSquareMile = totalHateCount / totalMiles;
         var hatePerPerson = totalHateCount / totalPopulation;
