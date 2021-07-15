@@ -144,6 +144,11 @@ $(function(w){
     var promise = $.ajax(url);
     promise.then(success, error);
 
+    var promise = $.ajax("/mostcommonhatenationwide");
+    promise.then(function(res){
+        $("#nw_most_common_group").text(res);
+    });
+
 }(window));
 
 </script>

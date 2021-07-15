@@ -36,11 +36,18 @@ def get_most_common_hate_group(state=None):
     arg_dict = dict(state_arg=state)
 
     db_name = "hate_data.db"
-    query = """select headquarters, count(*)
-                from hate_groups as main
-                where main.state = :state_arg
-                group by main.headquarters
-                order by count(*) desc;"""
+
+    if state:
+        query = """select headquarters, count(*)
+                    from hate_groups as main
+                    where main.state = :state_arg
+                    group by main.headquarters
+                    order by count(*) desc;"""
+    else:
+        query = """select headquarters, count(*)
+                    from hate_groups as main
+                    group by main.headquarters
+                    order by count(*) desc;"""
 
     conn = sqlite3.connect(db_name)
     csr = conn.cursor()
@@ -114,6 +121,12 @@ def get_state_hate_data():
         hate_data_dict[state] = state_data
 
     return jsonify(hate_data_dict)
+
+
+@app.route("/mostcommonhatenationwide")
+def most_common_hate_nationwide():
+    most_common = get_most_common_hate_group(state=None)
+    return most_common
 
 
 @app.route("/")
