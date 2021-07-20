@@ -16,6 +16,10 @@ cvs_file_name = "splc-hate-groups-2020.csv"
 
 
 def get_state_populations():
+    """
+    Get data on every state and their population.
+    :return: The list of states and populations in dictionary form.
+    """
     file_name = "nst-est2019-alldata.csv"
     with open(file_name) as f:
         reader = csv.reader(f)
@@ -33,6 +37,11 @@ def get_state_populations():
 
 
 def get_most_common_hate_group(state=None):
+    """
+    Get the name of the most common hate group type.
+    :param state: If state is specified, finds the most common hate type for that state. Otherwise, for the whole USA
+    :return: The string name of the type of hate group that is most common.
+    """
     arg_dict = dict(state_arg=state)
 
     db_name = "hate_data.db"
@@ -58,7 +67,11 @@ def get_most_common_hate_group(state=None):
 
 
 def get_state_hate_count(state=None):
-
+    """
+    Get information on how many hate groups exist in a given state.
+    :param state: The name of the state. (Note: 'None' is not an option)
+    :return: A number representing how many hate groups exist in that state.
+    """
     db_name = "hate_data.db"
 
     query = """select count(*)
@@ -77,6 +90,10 @@ def get_state_hate_count(state=None):
 
 
 def get_state_square_miles():
+    """
+    Gets a list of miles of land for each state. (land-only excluding water)
+    :return: A dictionary list of states and the square miles of land in those borders.
+    """
     state_miles_list = []
 
     wiki_url = "https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_area"
@@ -125,12 +142,20 @@ def get_state_hate_data():
 
 @app.route("/mostcommonhatenationwide")
 def most_common_hate_nationwide():
+    """
+    Get the most common hate group type in the entire country.
+    :return: The name of the most common hate group type.
+    """
     most_common = get_most_common_hate_group(state=None)
     return most_common
 
 
 @app.route("/")
 def index():
+    """
+    Show the main html page
+    :return: A redirect to the main index page.
+    """
     return redirect("/static/index.html")
 
 
