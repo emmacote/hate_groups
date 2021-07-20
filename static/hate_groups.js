@@ -1,31 +1,31 @@
 
 $(function(w){
 
-    var success = function(statesHash){
+    const success = function(statesHash){
 
         // state by state data display
-        var stateByStateTable = $("#statebystatetable");
+        let stateByStateTable = $("#statebystatetable");
 
-        var state;
-        var rowObject;
+        let state;
+        let rowObject;
         for(state in statesHash){
-            var squareMiles = statesHash[state].square_miles;
-            var hateCount = statesHash[state].hate_count;
-            var mostCommon = statesHash[state].most_common;
-            var population = statesHash[state]["pop"];
-            var hateSquareMile = hateCount / squareMiles;
-            var hatePerson = hateCount / population;
+            let squareMiles = statesHash[state].square_miles;
+            let hateCount = statesHash[state].hate_count;
+            let mostCommon = statesHash[state].most_common;
+            let population = statesHash[state]["pop"];
+            let hateSquareMile = hateCount / squareMiles;
+            let hatePerson = hateCount / population;
 
-            var popCell = $("<td>").text(Number(population).toLocaleString());
-            var stateCell = $("<td>").text(state);
-            var squareMilesCell = $("<td>").text(squareMiles.toLocaleString());
-            var hateCountCell = $("<td>").text(hateCount.toLocaleString());
-            var mostCommonCell = $("<td>").text(mostCommon);
-            var hateSquareMileCell = $("<td>").text(hateSquareMile);
-            var hatePersonCell = $("<td>").text(hatePerson);
+            let popCell = $("<td>").text(Number(population).toLocaleString());
+            let stateCell = $("<td>").text(state);
+            let squareMilesCell = $("<td>").text(squareMiles.toLocaleString());
+            let hateCountCell = $("<td>").text(hateCount.toLocaleString());
+            let mostCommonCell = $("<td>").text(mostCommon);
+            let hateSquareMileCell = $("<td>").text(hateSquareMile);
+            let hatePersonCell = $("<td>").text(hatePerson);
 
 
-            var newRow = $("<tr>");
+            let newRow = $("<tr>");
             stateCell.appendTo(newRow);
             popCell.appendTo(newRow);
             squareMilesCell.appendTo(newRow);
@@ -38,14 +38,14 @@ $(function(w){
         }
 
         // nationwide data display
-        var totalMiles = 0;
-        var totalHateCount = 0;
-        var totalPopulation = 0;
+        let totalMiles = 0;
+        let totalHateCount = 0;
+        let totalPopulation = 0;
         for(state in statesHash){
-            var squareMiles = statesHash[state].square_miles;
-            var hateCount = statesHash[state].hate_count;
-            var mostCommon = statesHash[state].most_common;
-            var population = statesHash[state]["pop"];
+            let squareMiles = statesHash[state].square_miles;
+            let hateCount = statesHash[state].hate_count;
+            let mostCommon = statesHash[state].most_common;
+            let population = statesHash[state]["pop"];
 
             totalMiles = totalMiles + squareMiles;
             totalHateCount = totalHateCount + hateCount;
@@ -57,23 +57,23 @@ $(function(w){
         $("#nw_square_miles").text(totalMiles.toLocaleString());
         $("#nw_num_groups").text(totalHateCount.toLocaleString());
 
-        var hatePerSquareMile = totalHateCount / totalMiles;
-        var hatePerPerson = totalHateCount / totalPopulation;
+        let hatePerSquareMile = totalHateCount / totalMiles;
+        let hatePerPerson = totalHateCount / totalPopulation;
         $("#nw_groups_square_mile").text(hatePerSquareMile);
         $("#nw_groups_person").text(hatePerPerson);
 
     };
 
-    var error = function(e){
+    const error = function(e){
         console.log("error in ajax request...");
         console.log(e);
     };
 
-    var url = "/hatedata";
-    var promise = $.ajax(url);
+    const url = "/hatedata";
+    let promise = $.ajax(url);
     promise.then(success, error);
 
-    var promise = $.ajax("/mostcommonhatenationwide");
+    promise = $.ajax("/mostcommonhatenationwide");
     promise.then(function(res){
         $("#nw_most_common_group").text(res);
     });
