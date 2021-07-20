@@ -70,11 +70,11 @@ $(function(w){
     };
 
     const url = "/hatedata";
-    let promise = $.ajax(url);
-    promise.then(success, error);
+    const hateDataPromise = $.ajax(url);
+    hateDataPromise.then(success, error);
 
-    promise = $.ajax("/mostcommonhatenationwide");
-    promise.then(function(res){
+    const nationwidePromise = $.ajax("/mostcommonhatenationwide");
+    nationwidePromise.then(function(res){
         $("#nw_most_common_group").text(res);
     });
 
